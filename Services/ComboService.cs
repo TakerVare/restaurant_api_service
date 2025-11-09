@@ -1,56 +1,23 @@
 
 using Microsoft.Data.SqlClient;
 using Models;
+using RestauranteAPI.Repositories;
 
 namespace RestauranteAPI.Services
 {
     public class ComboService : IComboService
     {
-        private readonly string _connectionString;
+        private readonly IComboRepository _repository;
 
-        private readonly IPlatoPrincipalService _platoPrincipalService;
-        private readonly IBebidaService _bebidaService;
-        private readonly IPostreService _postreService;
-
-        public ComboService(IConfiguration configuration, IPlatoPrincipalService platoprincipalrepository, IBebidaService bebidarepository, IPostreService postrerepository)
+        public ComboService(IComboRepository repository)
         {
-             _connectionString = configuration.GetConnectionString("RestauranteDB") ?? "Not found";
-            _platoPrincipalService = platoprincipalrepository;
-            _bebidaService = bebidarepository;
-            _postreService = postrerepository;
+            _repository = repository;
         }
         
 
         public async Task<List<Combo>> GetAllAsync()
         {
-            var combos = new List<Combo>();
-
-            using (var connection = new SqlConnection(_connectionString))
-            {
-                await connection.OpenAsync();
-
-                string query = "SELECT Id, PlatoPrincipal, Bebida, Postre, Descuento FROM Combo";
-                using (var command = new SqlCommand(query, connection))
-                {
-                    using (var reader = await command.ExecuteReaderAsync())
-                    {
-                        while (await reader.ReadAsync())
-                        {
-                            var combo = new Combo
-                            {
-                                Id = reader.GetInt32(0),
-                                PlatoPrincipal = await _platoPrincipalService.GetByIdAsync(reader.GetInt32(1)),
-                                Bebida = await _bebidaService.GetByIdAsync(reader.GetInt32(2)),
-                                Postre = await _postreService.GetByIdAsync(reader.GetInt32(3)),
-                                Descuento = Convert.ToDouble(reader.GetDecimal(4)),
-                            }; 
-
-                            combos.Add(combo);
-                        }
-                    }
-                }
-            }
-            return combos;
+            return await _repository.GetAllAsync();
         }
 
         public async Task<Combo> GetByIdAsync(int id)
