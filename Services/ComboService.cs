@@ -1,113 +1,69 @@
-
-using Microsoft.Data.SqlClient;
-using Models;
 using RestauranteAPI.Repositories;
 
 namespace RestauranteAPI.Services
 {
     public class ComboService : IComboService
     {
-        private readonly IComboRepository _repository;
+        private readonly IComboRepository _comboRepository;
 
-        public ComboService(IComboRepository repository)
+        public ComboService(IComboRepository comboRepository)
         {
-            _repository = repository;
+            _comboRepository = comboRepository;
         }
-        
 
         public async Task<List<Combo>> GetAllAsync()
         {
-            return await _repository.GetAllAsync();
+            return await _comboRepository.GetAllAsync();
         }
 
-        public async Task<Combo> GetByIdAsync(int id)
+        public async Task<Combo?> GetByIdAsync(int id)
         {
-            Combo combo = null;
+            if (id <= 0)
+                throw new ArgumentException("El ID debe ser mayor que cero.");
 
-            using (var connection = new SqlConnection(_connectionString))
-            {
-                await connection.OpenAsync();
-
-                string query = "SELECT Id, PlatoPrincipal, Bebida, Postre, Descuento FROM Combo WHERE Id = @Id";
-                using (var command = new SqlCommand(query, connection))
-                {
-                    command.Parameters.AddWithValue("@Id", id);
-
-                    using (var reader = await command.ExecuteReaderAsync())
-                    {
-                        if (await reader.ReadAsync())
-                        {
-                            combo = new Combo
-                            {
-                                Id = reader.GetInt32(0),
-                                PlatoPrincipal = await _platoPrincipalService.GetByIdAsync(reader.GetInt32(1)),
-                                Bebida = await _bebidaService.GetByIdAsync(reader.GetInt32(2)),
-                                Postre = await _postreService.GetByIdAsync(reader.GetInt32(3)),
-                                Descuento = Convert.ToDouble(reader.GetDecimal(4)),
-                            };
-                        }
-                    }
-                }
-            }
-            return combo;
+            return await _comboRepository.GetByIdAsync(id);
         }
 
         public async Task AddAsync(Combo combo)
         {
-            using (var connection = new SqlConnection(_connectionString))
-            {
-                await connection.OpenAsync();
+            if (combo.PlatoPrincipal == null)
+                throw new ArgumentException("El combo debe tener un plato principal.");
 
-                string query = "INSERT INTO Combo (PlatoPrincipal, Bebida, Postre, Descuento) VALUES (@PlatoPrincipal, @Bebida, @Postre, @Descuento)";
-                using (var command = new SqlCommand(query, connection))
-                {
-                    command.Parameters.AddWithValue("@PlatoPrincipal", _platoPrincipalService.GetByIdAsync(combo.PlatoPrincipal.Id).Id);
-                    command.Parameters.AddWithValue("@Bebida", _bebidaService.GetByIdAsync(combo.Bebida.Id).Id);
-                    command.Parameters.AddWithValue("@Postre", _postreService.GetByIdAsync(combo.Postre.Id).Id);
-                    command.Parameters.AddWithValue("@Descuento", combo.Descuento);
+            if (combo.Bebida == null)
+                throw new ArgumentException("El combo debe tener una bebida.");
 
-                    await command.ExecuteNonQueryAsync();
-                }
-            }
+            if (combo.Postre == null)
+                throw new ArgumentException("El combo debe tener un postre.");
+
+            if (combo.Descuento < 0 || combo.Descuento > 1)
+                throw new ArgumentException("El descuento debe estar entre 0 y 1.");
+
+            await _comboRepository.AddAsync(combo);
         }
 
         public async Task UpdateAsync(Combo combo)
         {
-            using (var connection = new SqlConnection(_connectionString))
-            {
-                await connection.OpenAsync();
+            if (combo.Id <= 0)
+                throw new ArgumentException("El ID no es válido para actualización.");
 
-                string query = "UPDATE Combo SET PlatoPrincipal = @PlatoPrincipal, Bebida = @Bebida, Postre = @Postre, Descuento = @Descuento WHERE Id = @Id";
-                using (var command = new SqlCommand(query, connection))
-                {
-                    command.Parameters.AddWithValue("@Id", combo.Id);
-                    command.Parameters.AddWithValue("@PlatoPrincipal", combo.PlatoPrincipal.Id);
-                    command.Parameters.AddWithValue("@Bebida", combo.Bebida.Id);
-                    command.Parameters.AddWithValue("@Postre", combo.Postre.Id);
-                    command.Parameters.AddWithValue("@Descuento", combo.Descuento);
+            if (combo.PlatoPrincipal == null)
+                throw new ArgumentException("El combo debe tener un plato principal.");
 
-                    await command.ExecuteNonQueryAsync();
-                }
-            }
+            if (combo.Bebida == null)
+                throw new ArgumentException("El combo debe tener una bebida.");
+
+            if (combo.Postre == null)
+                throw new ArgumentException("El combo debe tener un postre.");
+
+            await _comboRepository.UpdateAsync(combo);
         }
 
         public async Task DeleteAsync(int id)
         {
-            using (var connection = new SqlConnection(_connectionString))
-            {
-                await connection.OpenAsync();
+            if (id <= 0)
+                throw new ArgumentException("El ID no es válido para eliminación.");
 
-                string query = "DELETE FROM Combo WHERE Id = @Id";
-                using (var command = new SqlCommand(query, connection))
-                {
-                    command.Parameters.AddWithValue("@Id", id);
-
-                    await command.ExecuteNonQueryAsync();
-                }
-            }
+            await _comboRepository.DeleteAsync(id);
         }
-
-
     }
-
 }

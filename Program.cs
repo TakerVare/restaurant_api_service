@@ -5,14 +5,19 @@ using RestauranteAPI.Services;
 var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("RestauranteDB");
 
+// Registrar Repositorios
 builder.Services.AddScoped<IPlatoPrincipalRepository, PlatoPrincipalRepository>();
 builder.Services.AddScoped<IPostreRepository, PostreRepository>();
 builder.Services.AddScoped<IBebidaRepository, BebidaRepository>();
 builder.Services.AddScoped<IComboRepository, ComboRepository>();
+
+// Registrar Services
 builder.Services.AddScoped<IPlatoPrincipalService, PlatoPrincipalService>();
+builder.Services.AddScoped<IPostreService, PostreService>();
+builder.Services.AddScoped<IBebidaService, BebidaService>();
+builder.Services.AddScoped<IComboService, ComboService>();
 
 // Add services to the container.
-
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -31,8 +36,6 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
-
-
 
 //PlatoPrincipalController.InicializarDatos();
 app.Run();

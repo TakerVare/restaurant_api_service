@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
-using RestauranteAPI.Repositories;
+using RestauranteAPI.Services;
 
 namespace RestauranteAPI.Controllers
 {
@@ -9,23 +9,23 @@ namespace RestauranteAPI.Controllers
    {
     private static List<Combo> combos = new List<Combo>();
 
-    private readonly IComboRepository _repository;
+    private readonly IComboService _comboService;
 
-    public ComboController(IComboRepository repository)
+    public ComboController(IComboService comboService)
         {
-            _repository = repository;
+            _comboService = comboService;
         }
     
         [HttpGet]
         public async Task<ActionResult<List<Combo>>> GetCombos()
         {
-            var combos = await _repository.GetAllAsync();
+            var combos = await _comboService.GetAllAsync();
             return Ok(combos);
         }
         [HttpGet("{id}")]
         public async Task<ActionResult<Combo>> GetCombo(int id)
         {
-            var combo = await _repository.GetByIdAsync(id);
+            var combo = await _comboService.GetByIdAsync(id);
             if (combo == null)
             {
                 return NotFound();
@@ -36,14 +36,14 @@ namespace RestauranteAPI.Controllers
         [HttpPost]
         public async Task<ActionResult<Combo>> CreateCombo(Combo combo)
         {
-            await _repository.AddAsync(combo);
+            await _comboService.AddAsync(combo);
             return CreatedAtAction(nameof(GetCombo), new { id = combo.Id }, combo);
         }
 
        [HttpPut("{id}")]
         public async Task<IActionResult> UpdateCombo(int id, Combo updatedCombo)
         {
-            var existingCombo = await _repository.GetByIdAsync(id);
+            var existingCombo = await _comboService.GetByIdAsync(id);
             if (existingCombo == null)
             {
                 return NotFound();
@@ -55,7 +55,7 @@ namespace RestauranteAPI.Controllers
             existingCombo.Postre = updatedCombo.Postre;
             existingCombo.Descuento = updatedCombo.Descuento;
 
-            await _repository.UpdateAsync(existingCombo);
+            await _comboService.UpdateAsync(existingCombo);
             return NoContent();
         }
 
@@ -64,12 +64,12 @@ namespace RestauranteAPI.Controllers
        [HttpDelete("{id}")]
        public async Task<IActionResult> DeleteCombo(int id)
        {
-           var combo = await _repository.GetByIdAsync(id);
+           var combo = await _comboService.GetByIdAsync(id);
            if (combo == null)
            {
                return NotFound();
            }
-           await _repository.DeleteAsync(id);
+           await _comboService.DeleteAsync(id);
            return NoContent();
        }
 
