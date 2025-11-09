@@ -10,12 +10,14 @@ builder.Services.AddScoped<IPlatoPrincipalRepository, PlatoPrincipalRepository>(
 builder.Services.AddScoped<IPostreRepository, PostreRepository>();
 builder.Services.AddScoped<IBebidaRepository, BebidaRepository>();
 builder.Services.AddScoped<IComboRepository, ComboRepository>();
+builder.Services.AddScoped<IMenuDiarioRepository, MenuDiarioRepository>(); // NUEVO
 
 // Registrar Services
 builder.Services.AddScoped<IPlatoPrincipalService, PlatoPrincipalService>();
 builder.Services.AddScoped<IPostreService, PostreService>();
 builder.Services.AddScoped<IBebidaService, BebidaService>();
 builder.Services.AddScoped<IComboService, ComboService>();
+builder.Services.AddScoped<IMenuDiarioService, MenuDiarioService>(); // NUEVO
 
 // Add services to the container.
 builder.Services.AddControllers();
