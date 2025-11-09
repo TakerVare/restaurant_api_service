@@ -1,4 +1,3 @@
-
 using Microsoft.Data.SqlClient;
 
 namespace RestauranteAPI.Repositories
@@ -9,7 +8,7 @@ namespace RestauranteAPI.Repositories
 
         public PostreRepository(IConfiguration configuration)
         {
-            _connectionString = configuration.GetConnectionString("RestauranteDB") ?? "Not found";;
+            _connectionString = configuration.GetConnectionString("RestauranteDB") ?? "Not found";
         }
 
         public async Task<List<Postre>> GetAllAsync()
@@ -43,9 +42,9 @@ namespace RestauranteAPI.Repositories
             return postres;
         }
 
-        public async Task<Postre> GetByIdAsync(int id)
+        public async Task<Postre?> GetByIdAsync(int id) // CAMBIO: Añadir ? para indicar que puede ser null
         {
-            Postre postre = null;
+            Postre? postre = null; // CAMBIO: Añadir ? para indicar que puede ser null
 
             using (var connection = new SqlConnection(_connectionString))
             {
@@ -156,8 +155,5 @@ namespace RestauranteAPI.Repositories
                 }
             }
         }
-
-
     }
-
 }

@@ -1,4 +1,3 @@
-
 using Microsoft.Data.SqlClient;
 
 namespace RestauranteAPI.Repositories
@@ -43,9 +42,9 @@ namespace RestauranteAPI.Repositories
             return platosPrincipales;
         }
 
-        public async Task<PlatoPrincipal> GetByIdAsync(int id)
+        public async Task<PlatoPrincipal?> GetByIdAsync(int id) // CAMBIO: Añadir ? para indicar que puede ser null
         {
-            PlatoPrincipal platoPrincipal = null;
+            PlatoPrincipal? platoPrincipal = null; // CAMBIO: Añadir ? para indicar que puede ser null
 
             using (var connection = new SqlConnection(_connectionString))
             {
@@ -156,8 +155,5 @@ namespace RestauranteAPI.Repositories
                 }
             }
         }
-
-
     }
-
 }

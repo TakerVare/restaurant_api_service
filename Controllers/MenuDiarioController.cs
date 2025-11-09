@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using RestauranteAPI.Services;
 using RestauranteAPI.Services.DTOs;
+using Models;
 
 namespace RestauranteAPI.Controllers
 {

@@ -1,4 +1,3 @@
-
 using Microsoft.Data.SqlClient;
 using Models;
 
@@ -53,9 +52,9 @@ namespace RestauranteAPI.Repositories
             return combos;
         }
 
-        public async Task<Combo> GetByIdAsync(int id)
+        public async Task<Combo?> GetByIdAsync(int id) // CAMBIO: Añadir ? para indicar que puede ser null
         {
-            Combo combo = null;
+            Combo? combo = null; // CAMBIO: Añadir ? para indicar que puede ser null
 
             using (var connection = new SqlConnection(_connectionString))
             {
@@ -94,9 +93,9 @@ namespace RestauranteAPI.Repositories
                 string query = "INSERT INTO Combo (PlatoPrincipal, Bebida, Postre, Descuento) VALUES (@PlatoPrincipal, @Bebida, @Postre, @Descuento)";
                 using (var command = new SqlCommand(query, connection))
                 {
-                    command.Parameters.AddWithValue("@PlatoPrincipal", combo.PlatoPrincipal.Id);
-                    command.Parameters.AddWithValue("@Bebida", combo.Bebida.Id);
-                    command.Parameters.AddWithValue("@Postre", combo.Postre.Id);
+                    command.Parameters.AddWithValue("@PlatoPrincipal", combo.PlatoPrincipal!.Id);
+                    command.Parameters.AddWithValue("@Bebida", combo.Bebida!.Id);
+                    command.Parameters.AddWithValue("@Postre", combo.Postre!.Id);
                     command.Parameters.AddWithValue("@Descuento", combo.Descuento);
 
                     await command.ExecuteNonQueryAsync();
@@ -114,9 +113,9 @@ namespace RestauranteAPI.Repositories
                 using (var command = new SqlCommand(query, connection))
                 {
                     command.Parameters.AddWithValue("@Id", combo.Id);
-                    command.Parameters.AddWithValue("@PlatoPrincipal", combo.PlatoPrincipal.Id);
-                    command.Parameters.AddWithValue("@Bebida", combo.Bebida.Id);
-                    command.Parameters.AddWithValue("@Postre", combo.Postre.Id);
+                    command.Parameters.AddWithValue("@PlatoPrincipal", combo.PlatoPrincipal!.Id);
+                    command.Parameters.AddWithValue("@Bebida", combo.Bebida!.Id);
+                    command.Parameters.AddWithValue("@Postre", combo.Postre!.Id);
                     command.Parameters.AddWithValue("@Descuento", combo.Descuento);
 
                     await command.ExecuteNonQueryAsync();
@@ -139,8 +138,5 @@ namespace RestauranteAPI.Repositories
                 }
             }
         }
-
-
     }
-
 }

@@ -1,4 +1,3 @@
-
 using System.Data;
 using Microsoft.Data.SqlClient;
 
@@ -44,9 +43,9 @@ namespace RestauranteAPI.Repositories
             return bebidas;
         }
 
-        public async Task<Bebida> GetByIdAsync(int id)
+        public async Task<Bebida?> GetByIdAsync(int id) // CAMBIO: Añadir ? para indicar que puede ser null
         {
-            Bebida bebida = null;
+            Bebida? bebida = null; // CAMBIO: Añadir ? para indicar que puede ser null
 
             using (var connection = new SqlConnection(_connectionString))
             {
@@ -157,8 +156,5 @@ namespace RestauranteAPI.Repositories
                 }
             }
         }
-
-
     }
-
 }
