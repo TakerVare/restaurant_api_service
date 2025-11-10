@@ -11,7 +11,7 @@ public class PlatoPrincipal : Producto {
 
     public string Ingredientes {get;set;} = "";
 
-public PlatoPrincipal() {} //parameterless constructor
+public PlatoPrincipal() {} 
 
 public PlatoPrincipal(string nombre, double precio, string ingredientes): base(nombre, precio) {
    Ingredientes = ingredientes;
@@ -24,11 +24,4 @@ public PlatoPrincipal(string nombre, double precio, string ingredientes): base(n
         Console.WriteLine($"Plato principal: {Nombre}, Precio {Precio:C}, Ingredientes {Ingredientes} ");
     }
 
-/*
-    public override string MostrarDetallesGuardado() {
-        var message = $"PlatoPrincipal|{Nombre}|{Precio}|{Ingredientes}";
-        return message;
-
-    }
-*/
 }

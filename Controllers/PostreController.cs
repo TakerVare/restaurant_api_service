@@ -49,7 +49,6 @@ namespace RestauranteAPI.Controllers
                 return NotFound();
             }
 
-            // Actualizar el postre existente
             existingPostre.Nombre = updatedPostre.Nombre;
             existingPostre.Precio = updatedPostre.Precio;
             existingPostre.Calorias = updatedPostre.Calorias;
@@ -58,8 +57,7 @@ namespace RestauranteAPI.Controllers
             return NoContent();
         }
 
-        ///Cambio necesario///
-  
+        
        [HttpDelete("{id}")]
        public async Task<IActionResult> DeletePostre(int id)
        {

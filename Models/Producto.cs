@@ -19,6 +19,6 @@ public abstract class Producto {
 
     public abstract void MostrarDetalles();
 
-   // public abstract string MostrarDetallesGuardado();
+   
 
 }

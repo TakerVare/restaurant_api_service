@@ -70,9 +70,7 @@ namespace RestauranteAPI.Controllers
             }
         }
 
-        /// <summary>
-        /// Crea un nuevo menú diario
-        /// </summary>
+        
         [HttpPost]
         public async Task<ActionResult<MenuDiario>> CreateMenuDiario(MenuDiarioDto menuDiarioDto)
         {
@@ -95,9 +93,7 @@ namespace RestauranteAPI.Controllers
             }
         }
 
-        /// <summary>
-        /// Actualiza un menú diario existente
-        /// </summary>
+        
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateMenuDiario(int id, MenuDiarioDto menuDiarioDto)
         {
@@ -120,9 +116,7 @@ namespace RestauranteAPI.Controllers
             }
         }
 
-        /// <summary>
-        /// Elimina un menú diario
-        /// </summary>
+        
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteMenuDiario(int id)
         {

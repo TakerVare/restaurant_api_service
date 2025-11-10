@@ -52,9 +52,9 @@ namespace RestauranteAPI.Repositories
             return combos;
         }
 
-        public async Task<Combo?> GetByIdAsync(int id) // CAMBIO: Añadir ? para indicar que puede ser null
+        public async Task<Combo?> GetByIdAsync(int id) 
         {
-            Combo? combo = null; // CAMBIO: Añadir ? para indicar que puede ser null
+            Combo? combo = null; 
 
             using (var connection = new SqlConnection(_connectionString))
             {

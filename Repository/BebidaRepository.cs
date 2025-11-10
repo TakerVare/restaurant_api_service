@@ -43,9 +43,9 @@ namespace RestauranteAPI.Repositories
             return bebidas;
         }
 
-        public async Task<Bebida?> GetByIdAsync(int id) // CAMBIO: Añadir ? para indicar que puede ser null
+        public async Task<Bebida?> GetByIdAsync(int id) 
         {
-            Bebida? bebida = null; // CAMBIO: Añadir ? para indicar que puede ser null
+            Bebida? bebida = null; 
 
             using (var connection = new SqlConnection(_connectionString))
             {
@@ -133,7 +133,6 @@ namespace RestauranteAPI.Repositories
             {
                 await connection.OpenAsync();
 
-                // Comando SQL para insertar datos iniciales
                 var query = @"
                     INSERT INTO Bebida (Nombre, Precio, EsAlcoholica)
                     VALUES 
@@ -142,12 +141,10 @@ namespace RestauranteAPI.Repositories
 
                 using (var command = new SqlCommand(query, connection))
                 {
-                    // Parámetros para el primer bebida
                     command.Parameters.AddWithValue("@Nombre1", "Bebida mojada");
                     command.Parameters.AddWithValue("@Precio1", 4.40);
                     command.Parameters.AddWithValue("@EsAlcoholica1", 1);
 
-                    // Parámetros para el segundo bebida
                     command.Parameters.AddWithValue("@Nombre2", "Bebida húmeda");
                     command.Parameters.AddWithValue("@Precio2", 5.70);
                     command.Parameters.AddWithValue("@EsAlcoholica2", 0);

@@ -93,7 +93,7 @@ namespace RestauranteAPI.Services
             if (menuDiarioExistente == null)
                 throw new ArgumentException($"No se encontró el menú diario con ID {id}");
 
-            // Verificar que no exista otro menú para la nueva fecha (si cambió)
+            // Verificar que no exista otro menú para la nueva fecha
             if (menuDiarioExistente.Fecha != menuDiarioDto.Fecha.Date)
             {
                 var menuEnFecha = await _menuDiarioRepository.GetByFechaAsync(menuDiarioDto.Fecha);

@@ -42,9 +42,9 @@ namespace RestauranteAPI.Repositories
             return postres;
         }
 
-        public async Task<Postre?> GetByIdAsync(int id) // CAMBIO: Añadir ? para indicar que puede ser null
+        public async Task<Postre?> GetByIdAsync(int id)
         {
-            Postre? postre = null; // CAMBIO: Añadir ? para indicar que puede ser null
+            Postre? postre = null;
 
             using (var connection = new SqlConnection(_connectionString))
             {
@@ -132,7 +132,6 @@ namespace RestauranteAPI.Repositories
             {
                 await connection.OpenAsync();
 
-                // Comando SQL para insertar datos iniciales
                 var query = @"
                     INSERT INTO Postre (Nombre, Precio, Calorias)
                     VALUES 
@@ -141,12 +140,10 @@ namespace RestauranteAPI.Repositories
 
                 using (var command = new SqlCommand(query, connection))
                 {
-                    // Parámetros para el primer postre
                     command.Parameters.AddWithValue("@Nombre1", "Postre chupiguay");
                     command.Parameters.AddWithValue("@Precio1", 5.50);
                     command.Parameters.AddWithValue("@Calorias1", 200);
 
-                    // Parámetros para el segundo postre
                     command.Parameters.AddWithValue("@Nombre2", "Postre chachipiruli");
                     command.Parameters.AddWithValue("@Precio2", 6.00);
                     command.Parameters.AddWithValue("@Calorias2", 500);

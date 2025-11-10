@@ -42,9 +42,9 @@ namespace RestauranteAPI.Repositories
             return platosPrincipales;
         }
 
-        public async Task<PlatoPrincipal?> GetByIdAsync(int id) // CAMBIO: Añadir ? para indicar que puede ser null
+        public async Task<PlatoPrincipal?> GetByIdAsync(int id)
         {
-            PlatoPrincipal? platoPrincipal = null; // CAMBIO: Añadir ? para indicar que puede ser null
+            PlatoPrincipal? platoPrincipal = null;
 
             using (var connection = new SqlConnection(_connectionString))
             {
@@ -132,7 +132,6 @@ namespace RestauranteAPI.Repositories
             {
                 await connection.OpenAsync();
 
-                // Comando SQL para insertar datos iniciales
                 var query = @"
                     INSERT INTO PlatoPrincipal (Nombre, Precio, Ingredientes)
                     VALUES 
@@ -141,12 +140,11 @@ namespace RestauranteAPI.Repositories
 
                 using (var command = new SqlCommand(query, connection))
                 {
-                    // Parámetros para el primer plato
+                    
                     command.Parameters.AddWithValue("@Nombre1", "Plato combinado");
                     command.Parameters.AddWithValue("@Precio1", 12.50);
                     command.Parameters.AddWithValue("@Ingredientes1", "Pollo, patatas, tomate");
 
-                    // Parámetros para el segundo plato
                     command.Parameters.AddWithValue("@Nombre2", "Plato vegetariano");
                     command.Parameters.AddWithValue("@Precio2", 10.00);
                     command.Parameters.AddWithValue("@Ingredientes2", "Tofu, verduras, arroz");

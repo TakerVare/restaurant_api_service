@@ -1,9 +1,7 @@
 namespace Models;
 
 class Pedido {
-//private List<Producto> productos;
 private List<(Producto, int)> productos; //tupla de Producto (item1) y cantidad (item2)
-//Investiga las diferencias entre tupla y diccionario
 public double Descuento {get;set;} = 0.0;
 public double Impuesto {get;set;} = 0.21;
 
@@ -14,8 +12,6 @@ public static int Identificador {get; private set;} = 0;
 
 public Pedido() {
     productos = new List<(Producto,int)>();
-   // Descuento = 0;
-   // Impuesto = 0.21;
     FechaPedido = DateTime.Now;
     Identificador++;
     ID = Identificador;
@@ -44,7 +40,6 @@ public void MostrarPedido() {
 public double CalcularTotal() {
     double total = 0;
     foreach (var (producto,cantidad) in productos) {
-        //total += producto.Item1.Precio * producto.Item2;
         total += producto.Precio * cantidad;
     }
     double totalConDescuento = total*(1-Descuento);
@@ -58,10 +53,7 @@ public double CalcularTotal() {
         {
             foreach (var (producto,cantidad) in productos)
             {
-                //Producto producto = item.Item1;
-                //int cantidad = item.Item2;
-
-                   
+                                   
                 if (producto is PlatoPrincipal plato)
                 {
                     sw.WriteLine($"PlatoPrincipal|{plato.Nombre}|{plato.Precio}|{plato.Ingredientes}|{cantidad}");

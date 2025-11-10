@@ -49,7 +49,6 @@ namespace RestauranteAPI.Controllers
                 return NotFound();
             }
 
-            // Actualizar el combo existente
             existingCombo.PlatoPrincipal = updatedCombo.PlatoPrincipal;
             existingCombo.Bebida = updatedCombo.Bebida;
             existingCombo.Postre = updatedCombo.Postre;
@@ -59,8 +58,7 @@ namespace RestauranteAPI.Controllers
             return NoContent();
         }
 
-        ///Cambio necesario///
-  
+        
        [HttpDelete("{id}")]
        public async Task<IActionResult> DeleteCombo(int id)
        {

@@ -49,7 +49,6 @@ namespace RestauranteAPI.Controllers
                 return NotFound();
             }
 
-            // Actualizar el bebida existente
             existingBebida.Nombre = updatedBebida.Nombre;
             existingBebida.Precio = updatedBebida.Precio;
             existingBebida.EsAlcoholica = updatedBebida.EsAlcoholica;
@@ -58,8 +57,7 @@ namespace RestauranteAPI.Controllers
             return NoContent();
         }
 
-        ///Cambio necesario///
-  
+        
        [HttpDelete("{id}")]
        public async Task<IActionResult> DeleteBebida(int id)
        {

@@ -50,7 +50,6 @@ namespace RestauranteAPI.Repositories
                                 PrecioTotal = Convert.ToDouble(reader.GetDecimal(5))
                             };
 
-                            // Cargar las entidades relacionadas
                             menuDiario.PlatoPrincipal = await _platoPrincipalRepository.GetByIdAsync(menuDiario.PlatoPrincipalId);
                             menuDiario.Bebida = await _bebidaRepository.GetByIdAsync(menuDiario.BebidaId);
                             menuDiario.Postre = await _postreRepository.GetByIdAsync(menuDiario.PostreId);
@@ -93,7 +92,6 @@ namespace RestauranteAPI.Repositories
                                 PrecioTotal = Convert.ToDouble(reader.GetDecimal(5))
                             };
 
-                            // Cargar las entidades relacionadas
                             menuDiario.PlatoPrincipal = await _platoPrincipalRepository.GetByIdAsync(menuDiario.PlatoPrincipalId);
                             menuDiario.Bebida = await _bebidaRepository.GetByIdAsync(menuDiario.BebidaId);
                             menuDiario.Postre = await _postreRepository.GetByIdAsync(menuDiario.PostreId);
@@ -134,7 +132,6 @@ namespace RestauranteAPI.Repositories
                                 PrecioTotal = Convert.ToDouble(reader.GetDecimal(5))
                             };
 
-                            // Cargar las entidades relacionadas
                             menuDiario.PlatoPrincipal = await _platoPrincipalRepository.GetByIdAsync(menuDiario.PlatoPrincipalId);
                             menuDiario.Bebida = await _bebidaRepository.GetByIdAsync(menuDiario.BebidaId);
                             menuDiario.Postre = await _postreRepository.GetByIdAsync(menuDiario.PostreId);
