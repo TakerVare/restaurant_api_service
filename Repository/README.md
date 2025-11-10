@@ -1,4 +1,4 @@
-## NOTAS: ##
+## NOTAS:
 
 # Repository
 Este repositorio contiene el código fuente del servicio API para la gestión de menús diarios en un restaurante. Proporciona funcionalidades para crear, leer, actualizar y eliminar menús diarios, así como para consultar menús por fecha específica.

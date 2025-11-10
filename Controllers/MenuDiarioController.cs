@@ -15,10 +15,7 @@ namespace RestauranteAPI.Controllers
         {
             _menuDiarioService = menuDiarioService;
         }
-
-        /// <summary>
-        /// Obtiene todos los menús diarios
-        /// </summary>
+        
         [HttpGet]
         public async Task<ActionResult<List<MenuDiario>>> GetMenusDiarios()
         {
@@ -33,9 +30,6 @@ namespace RestauranteAPI.Controllers
             }
         }
 
-        /// <summary>
-        /// Obtiene un menú diario por ID
-        /// </summary>
         [HttpGet("{id}")]
         public async Task<ActionResult<MenuDiario>> GetMenuDiario(int id)
         {
@@ -58,9 +52,6 @@ namespace RestauranteAPI.Controllers
             }
         }
 
-        /// <summary>
-        /// Obtiene el menú diario de una fecha específica
-        /// </summary>
         [HttpGet("fecha/{fecha}")]
         public async Task<ActionResult<MenuDiario>> GetMenuDiarioPorFecha(DateTime fecha)
         {
